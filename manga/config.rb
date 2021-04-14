@@ -4,6 +4,8 @@
 # Change this path to your liking.
 BASE_DIRECTORY_PATH = '/base/directory/path/to/store/your/books'
 
+READ_TIMEOUT = 30 # in seconds
+
 # URL_DATA:
 # [0]: The first argument of the inner array is the URL of the Book.
 # [1]: The second argument is the name you are giving the book.
