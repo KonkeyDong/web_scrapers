@@ -7,7 +7,7 @@ require 'nokogiri'
 require_relative './config'
 
 def pre_download(url)
-    html = Nokogiri::HTML(open(url, read_timeout: READ_TIMEOUT))
+    html = Nokogiri::HTML(URI.open(url, read_timeout: READ_TIMEOUT))
     html.css('.chapter-name.short')
         .reverse
         .each_with_index
@@ -42,7 +42,7 @@ def download(chapters_and_href, book_name, archive, archive_hash)
         FileUtils.mkdir_p(directory)
 
         puts "Downloading book #{book_name}, #{title}..."
-        html = Nokogiri::HTML(open(href, read_timeout: READ_TIMEOUT))
+        html = Nokogiri::HTML(URI.open(href, read_timeout: READ_TIMEOUT))
                        .css('.sl-page option')
 
         archive_flags = []
@@ -53,7 +53,7 @@ def download(chapters_and_href, book_name, archive, archive_hash)
             page_url = page["value"]
 
 
-            image_url = Nokogiri::HTML(open(page_url, read_timeout: READ_TIMEOUT))
+            image_url = Nokogiri::HTML(URI.open(page_url, read_timeout: READ_TIMEOUT))
                                 .css('.manga_pic')
                                 .first["src"]
 
@@ -84,7 +84,7 @@ end
 
 def write_image(image_url, file_name, directory, href)
     # write image file
-    open(image_url) do |image|
+    URI.open(image_url) do |image|
         File.open(file_name, "wb") do |file|
             file.write(image.read)
         end
