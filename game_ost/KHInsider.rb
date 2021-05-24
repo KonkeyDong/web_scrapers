@@ -2,7 +2,7 @@
 # require 'byebug'
 require 'nokogiri'
 require 'open-uri'
-require 'forkmanager'
+require '/var/lib/gems/2.7.0/gems/parallel-forkmanager-2.0.6/lib/parallel/forkmanager' #'forkmanager'
 
 class KHInsider
   attr_accessor :album, :number_of_songs, :bad_songs
@@ -28,8 +28,8 @@ class KHInsider
       pm.start(data) && next # blocks until new fork slot is available
 
       puts "Now downloading: [#{data[:title]}] (of #{@number_of_songs})"
-      file_url = Nokogiri::HTML(open(data[:url])).xpath('//audio').first.attributes["src"].value
-      IO.copy_stream(open(file_url), "./#{@album}/#{data[:title]}")
+      file_url = Nokogiri::HTML(URI.open(data[:url])).xpath('//audio').first.attributes["src"].value
+      IO.copy_stream(URI.open(file_url), "./#{@album}/#{data[:title]}")
 
       pm.finish(0)
     end
