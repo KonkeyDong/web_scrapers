@@ -3,8 +3,8 @@
 ## How to use
 
 1. Go to https://downloads.khinsider.com/ and search for your desired soundtracks.
-1. Save the URLs into a file, named such as `urls.txt`.
-1. Download your OSTs: `ruby download.rb urls.txt`
+1. Save the URLs into a file, named such as `url_list.txt`.
+1. Download your OSTs: `ruby download.rb url_list.txt`
 
 **Note** that the reason why I feed a `.txt` file into the program on execution instead of my usual "array of arrays of urls and directory location" settings file is because the website has some questionable uploads. You'll see what I mean when you start looking around: no track titles, missing track titles, Japanese characters, Spanish named songs, missing track numbers, etc.
 
