@@ -114,6 +114,8 @@ def help
     puts heredoc
 end
 
+# START
+
 options = {
     number_of_downloads: '',
     cookie: '',
@@ -149,6 +151,7 @@ OptionParser.new do |opts|
 end.parse!
 
 s = Stopwatch.new
+puts s.timestamp()
 if options[:select_download]
     select_specific_download(AUDIO, VIDEO, options)
 else
@@ -156,3 +159,5 @@ else
     download(VIDEO, 'bestvideo', 'videos', options)
 end
 s.elapsed_time
+
+# FINISH

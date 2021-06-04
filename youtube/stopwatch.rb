@@ -6,6 +6,10 @@ class Stopwatch
     @start = Time.now
   end
 
+  def timestamp()
+    Time.new.to_s
+  end
+
   def elapsed_time
     now = Time.now
     elapsed = now - @start
