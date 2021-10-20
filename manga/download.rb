@@ -5,6 +5,7 @@ require 'open-uri'
 require 'nokogiri'
 
 require_relative './config'
+require_relative './stopwatch'
 
 def pre_download(url)
     html = Nokogiri::HTML(URI.open(url, read_timeout: READ_TIMEOUT))
@@ -27,6 +28,7 @@ end
 
 def download(chapters_and_href, book_name, archive, archive_hash)
     first_write = true
+    chapters_downloaded = 0
     chapters_and_href.each_with_index do |data, chapter_index|
         STDOUT.flush
         title = data[:title]
@@ -79,7 +81,11 @@ def download(chapters_and_href, book_name, archive, archive_hash)
         else
             puts "Skipping writing to archive..."
         end
+
+        chapters_downloaded += 1
     end
+
+    chapters_downloaded
 end
 
 def write_image(image_url, file_name, directory, href)
@@ -104,6 +110,8 @@ rescue
     return false
 end
 
+chapters_downloaded = 0
+stopwatch = Stopwatch.new()
 URL_DATA.each do |(url, book_name)|
     puts "Now downloading [#{book_name}]..."
     chapters_and_href = pre_download(url)
@@ -119,10 +127,12 @@ URL_DATA.each do |(url, book_name)|
                        .map(&:chomp)
                        .map { |url| [url, true] }.to_h
 
-    download(chapters_and_href, book_name, archive,  archive_hash)
+    chapters_downloaded += download(chapters_and_href, book_name, archive,  archive_hash)
 
     # prevent output hanging after sufficient output messages.
     STDOUT.flush
 end
+stopwatch.elapsed_time
+puts "Chapters downloaded: #{chapters_downloaded}"
 
 puts "Complete!"
