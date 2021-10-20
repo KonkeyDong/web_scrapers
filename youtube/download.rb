@@ -83,7 +83,6 @@ def prompt_choices(audio, video)
         .split(" ")
         .map(&:to_i)
         .map{ |current| prompt[current] }
-        .reduce([]) do |previous, current|
 end
 
 def exit_program?(selection)
