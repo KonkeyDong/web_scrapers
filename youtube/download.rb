@@ -25,7 +25,7 @@ def download(data, format, path, options)
             Config::YOUTUBE_DL_BASE,
             "--format #{format}",
             "'#{url}'",
-            "-o '#{full_path}/%(upload_date)s_%(title)s.%(ext)s'",
+            "-o '#{full_path}/#{Config::DESIRED_FILE_FORMAT}'",
             options[:number_of_downloads],
             options[:download_speed],
             "--restrict-filenames",
@@ -82,11 +82,8 @@ def prompt_choices(audio, video)
         .gsub(/\s+/, " ")
         .split(" ")
         .map(&:to_i)
+        .map{ |current| prompt[current] }
         .reduce([]) do |previous, current|
-            previous.push(prompt[current])
-
-            previous
-        end
 end
 
 def exit_program?(selection)
