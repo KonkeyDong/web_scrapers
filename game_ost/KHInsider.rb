@@ -2,7 +2,8 @@
 # require 'byebug'
 require 'nokogiri'
 require 'open-uri'
-require '/usr/local/bundle/gems/parallel-forkmanager-2.0.6/lib/parallel/forkmanager' #'forkmanager'
+#require '/usr/local/bundle/gems/parallel-forkmanager-2.0.6/lib/parallel/forkmanager' #'forkmanager'
+require '/var/lib/gems/2.7.0/gems/parallel-forkmanager-2.0.6/lib/parallel/forkmanager.rb'
 
 class KHInsider
   attr_accessor :album, :number_of_songs, :bad_songs

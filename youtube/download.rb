@@ -67,7 +67,7 @@ end
 
 def prompt_choices(audio, video)
     puts "Pick a number to select which yotube playlist to download:"
-    prompt = [*audio, *video].reduce(['EXIT PROGRAM']) do |previous, (url, author)|
+    prompt = [*audio, *video].reduce(['EXIT PROGRAM']) do |previous, (_, author)|
         previous.push(author)
 
         previous
