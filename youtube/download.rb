@@ -29,7 +29,7 @@ def download(data, format, path, options)
             options[:number_of_downloads],
             options[:download_speed],
             "--restrict-filenames",
-            options[:cookie],
+            options[:cookies],
              "--download-archive #{full_path}/archive.txt"
         ].join(' '))
     end
@@ -102,7 +102,7 @@ def help
     heredoc = <<-HEREDOC
     backup_youtube_videos.rb manual pages:
 
-        -c, --cookie cookie_file.txt       : Set the youtube cookie. Don't use ~ in your path!
+        --cookies cookie_file.txt      : Set the youtube cookie. Don't use ~ in your path!
         -h, --help                         : Print the help docs and exit.
         -n, --number-of-downloads <number> : Set the MAX number of downloads.
         -s, --select                       : Select a specific url to download its entire library.
@@ -116,7 +116,7 @@ end
 
 options = {
     number_of_downloads: '',
-    cookie: '',
+    cookies: '',
     download_speed: '-r 1m', # 1 MB download/second MAX default
     select_download: false
 }
@@ -138,8 +138,8 @@ OptionParser.new do |opts|
     end
 
     opts.on('-c STRING', '--cookies STRING') do |cookie_file|
-        options[:cookie] = "--cookie #{File.absolute_path(cookie_file)}"
-        puts "cookie: #{options[:cookie]}"
+        options[:cookies] = "--cookies #{File.absolute_path(cookie_file)}"
+        puts "cookies: #{options[:cookies]}"
     end
 
     opts.on('-s', '--select') do
