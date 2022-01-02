@@ -9,19 +9,17 @@ require_relative './stopwatch'
 
 def pre_download(url)
     html = Nokogiri::HTML(URI.open(url, read_timeout: READ_TIMEOUT))
-    html.css('.chapter-name.short')
+    html.css('.main-content .chp-ls')
+        .css('a')
         .reverse
         .each_with_index
         .map do |chapter, index|
-             data = chapter.css('a')
-                           .first
-
              {
 
                  title: ["chapter", (index + 1).to_s
                                                .rjust(4, "0")]
                                                .join('_'),
-                 href: data["href"]
+                 href: chapter["href"]
              }
         end
 end
@@ -45,19 +43,20 @@ def download(chapters_and_href, book_name, archive, archive_hash)
 
         puts "Downloading book #{book_name}, #{title}..."
         html = Nokogiri::HTML(URI.open(href, read_timeout: READ_TIMEOUT))
-                       .css('.sl-page option')
+                       .css('.option-item-trigger.chp-page-trigger.chp-selection-item')
 
         archive_flags = []
 
         # The website doubles the amount of chapter pages in the source code for some reason.
-        # So, only take from thef irst half to avoid doubling the amount of pages in the directory.
+        # So, only take from the first half to avoid doubling the amount of pages in the directory.
         html[0...(html.length / 2)].each_with_index do |page, index|
-            page_url = page["value"]
+            page_url = page["option_val"]
 
 
             image_url = Nokogiri::HTML(URI.open(page_url, read_timeout: READ_TIMEOUT))
                                 .css('.manga_pic')
                                 .first["src"]
+
 
             file_extension = image_url.match(/\.(\w+)$/)
                                       .captures
