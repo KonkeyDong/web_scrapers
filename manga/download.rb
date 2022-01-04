@@ -24,12 +24,12 @@ end
 
 # Trap ^C 
 Signal.trap("INT") { 
-  shut_down 
+  shutdown 
 }
 
 # Trap `Kill `
 Signal.trap("TERM") {
-  shut_down
+  shutdown
 }
 
 def pre_download(url)
