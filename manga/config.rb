@@ -2,7 +2,7 @@
 # Using Dragon Ball, for example, means all chapters for Dragon Ball will be saved under:
 # /base/directory/path/to/store/your/books/dragon_ball
 # Change this path to your liking.
-BASE_DIRECTORY_PATH = "/media/HDD_4TB_01/manga"
+BASE_DIRECTORY_PATH = "/media/4TB_MEDIA/manga"
 
 READ_TIMEOUT = 30 # in seconds
 
@@ -20,10 +20,10 @@ URL_DATA = [
     ["http://www.tenmanga.com/book/God+of+Martial+Arts.html", "god_of_martial_arts"],
     ["http://www.tenmanga.com/book/Kaifuku+Jutsushi+no+Yarinaoshi.html", "redo_of_healer"],
     ["http://www.tenmanga.com/book/%2BC+Sword+and+Cornett.html", "+c_sword_and_cornett"],
-    ["http://www.tenmanga.com/book/NANATSU+NO+TAIZAI.html", "seven_deadly_sins"],
-    ["http://www.tenmanga.com/book/BLACK+CLOVER.html", "black_clover"],
+    #["http://www.tenmanga.com/book/NANATSU+NO+TAIZAI.html", "seven_deadly_sins"],
+    #["http://www.tenmanga.com/book/BLACK+CLOVER.html", "black_clover"],
     ["http://www.tenmanga.com/book/666+Satan.html", "666_satan"],
-    ["http://www.tenmanga.com/book/Star+Martial+God+Technique.html", "star_martial_god_technique"],
+    #["http://www.tenmanga.com/book/Star+Martial+God+Technique.html", "star_martial_god_technique"],
     ["http://www.tenmanga.com/book/HISTORY%27S+STRONGEST+DISCIPLE+KENICHI.html", "historys_strongest_disciple_kenichi"],
     ["http://www.tenmanga.com/book/Berserk.html", "berserk"],
     ["http://www.tenmanga.com/book/Tokyo+Ghoul.html", "tokyo_ghoul"],

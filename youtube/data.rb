@@ -88,8 +88,16 @@ AUDIO = [
     ["https://www.youtube.com/channel/UC_YtbwcocB4HbbTRVO8fqbQ/videos", "viking_traveler"],
 
     ["https://www.youtube.com/c/TheLarryElderShowRadio/videos", "larry_elder_show"],
+    ["https://www.youtube.com/channel/UCzaLLiX6Rn3pjqAlbWD9mGQ/videos", "larry_elder_show/highlights"],
     ["https://www.youtube.com/channel/UCVYM293tSks8SxnHS-UUhzA/videos", "molyneux_resurrected"],
-    ["https://www.youtube.com/channel/UCkpI0T2rD5N3tN5R3BQqhkw/videos", "migtown_podcast"],
+
+    # migtown podcast
+    ["https://www.youtube.com/watch?v=RCgtd4Om_V8&list=PLjbOezUzRJ4WE0_D0gf8mJhZJ-WHURswT", "migtown_podcast/podcast"],
+    ["https://www.youtube.com/watch?v=GPhXOHNRj7U&list=PLjbOezUzRJ4WwpsagGotziSkU5n3xjIGJ", "migtown_podcast/12_days_of_thotmas_2020"],
+    ["https://www.youtube.com/watch?v=NVInE8e4RRA&list=PLjbOezUzRJ4WleGSwDzFKRolp3aQld4p_", "migtown_podcast/DSYPFC_series"],
+    ["https://www.youtube.com/watch?v=OEN6XBHzjwY&list=PLjbOezUzRJ4Xnv6dMvJ5Q4K5wnVRyOfRp", "migtown_podcast/holiday_livestreams"],
+    ["https://www.youtube.com/watch?v=GsfYJnG1lno&list=PLjbOezUzRJ4VaWH_guG7o5hu1xuDBcIIt", "migtown_podcast/thot_girl_summer"],
+    ["https://www.youtube.com/watch?v=TfnC42pnZ4w&list=PLjbOezUzRJ4VetPvE0FCkR09A2Dt3tSnr", "migtown_podcast/chameleon_crusades"],
 
     # rubin report
     ["https://www.youtube.com/watch?v=OEm8x8FUvGo&list=PLEbhOtC9klbCr0iN2ANJbaV477B0eSpc6", "rubin_report/politics"],
@@ -118,6 +126,23 @@ AUDIO = [
     ["https://www.youtube.com/c/redonkulaspopp/videos", "terrence_popp"],
     ["https://www.youtube.com/watch?v=v6JW4OfLFbI&list=PL3e1orPYt_4YwSmw1vhXbxfm4fHZdlCkP", "steven_crowder/podcasts"],
     ["https://www.youtube.com/watch?v=WtftZPL-k7Y&list=PL3e1orPYt_4ZHGjuivZFsyJ81RL7j7_E1", "steven_crowder/change_my_mind"],
+    ["https://www.youtube.com/user/TokyoAtomic/videos", "black_pigeon_speaks"],
+    ["https://www.youtube.com/c/RantingMonkey/videos", "monkey_in_the_morning"],
+    ["https://www.youtube.com/channel/UCo1qRcO1OehgkOD_fHsu_uQ/videos", "thinking_ape"],
+
+    # Summit Properties NW
+    ["https://www.youtube.com/watch?v=AAUOyzZtHIM&list=PLxJLBkVM8OjQHdFPNolTvigIMxJ_pDQEG", "seattle_real_estate/podcast"],
+    ["https://www.youtube.com/watch?v=5UG3BX1zzHQ&list=PLxJLBkVM8OjT16wIzkFVezNa539JXHxKj", "seattle_real_estate/podcast_mini_episodes"],
+    ["https://www.youtube.com/watch?v=n7LrNNy02ew&list=PLxJLBkVM8OjQ1O4A7Xjn5WpHajAJv_bT2", "seattle_real_estate/chop_chaz"],
+
+    ["https://www.youtube.com/c/RagingGoldenEagle/videos", "raging_golden_eagle"],
+
+    # adam carolla
+    ["https://www.youtube.com/watch?v=f1dCi1wCFHo&list=PLCjfquY2rpXKmR9B3-95vtf0AaBAjLNxz", "adam_carolla/reasonable_doubt"],
+    ["https://www.youtube.com/watch?v=Okr6qzg1qZM&list=PLCjfquY2rpXIOt6FEbZlkKhTiOJG9MlTG", "adam_carolla/daily_podcast"],
+    ["https://www.youtube.com/watch?v=LoiqIZ_QqEw&list=PLCjfquY2rpXITFbcx8cJ0sfk8FcWOPb8O", "adam_carolla/guests"],
+    ["https://www.youtube.com/watch?v=Ad4KyKDKeLQ&list=PLCjfquY2rpXJKp_ZWRQfpdxQaUb47fs8w", "adam_carolla/news"],
+    ["https://www.youtube.com/watch?v=PJAsz6VCf5A&list=PLCjfquY2rpXJIpmFCNhKHHtGPkmZi-DGe", "adam_carolla/fan_favorites"],
 ]
 
 # --format bestvideo
@@ -137,7 +162,7 @@ VIDEO = [
     ["https://www.youtube.com/watch?v=FDwCuz4WUi4&list=PLIBtb_NuIJ1w_5qAEs5cSUJ5Bk0R8QLaY", "prager_u/economics"],
     ["https://www.youtube.com/watch?v=giNJwXiktZ0&list=PLIBtb_NuIJ1zeuQ51NrTz7gMt0q89c8wK", "prager_u/welcome_to_prager_u"],
 
-    ["https://www.youtube.com/watch?v=9cs3f-oI-lI&list=PLkVbIsAWN2lsHdY7ldAAgtJug50pRNQv0", "louis_rossman/macbook_component_level_logic_board_repairs"],
+    #["https://www.youtube.com/watch?v=9cs3f-oI-lI&list=PLkVbIsAWN2lsHdY7ldAAgtJug50pRNQv0", "louis_rossman/macbook_component_level_logic_board_repairs"],
     ["https://www.youtube.com/watch?v=D2u1zPgphiM&list=PLkVbIsAWN2ltOWmriIdOc5CtiZqUTH7GT", "louis_rossman/guide_to_basic_electronics"],
 
     # red letter media
