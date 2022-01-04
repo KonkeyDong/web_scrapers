@@ -70,12 +70,12 @@ def download(chapters_and_href, book_name, archive, archive_hash)
                 page_url = page["option_val"]
 
 
-                LOGGER.DEBUG("BEFORE OPENING PAGE [#{page_url}]...")
+                LOGGER.debug("BEFORE OPENING PAGE [#{page_url}]...")
                 image_url = Nokogiri::HTML(URI.open(page_url, read_timeout: READ_TIMEOUT))
                                     .css('.manga_pic')
                                     .first["src"]
-                LOGGER.DEBUG("OPENING PAGE [#{page_url}] SUCCESS!")
-                LOGGER.DEBUG("  image_url = [#{image_url}]")
+                LOGGER.debug("OPENING PAGE [#{page_url}] SUCCESS!")
+                LOGGER.debug("  image_url = [#{image_url}]")
 
 
                 file_extension = image_url.match(/\.(\w+)$/)
@@ -84,7 +84,7 @@ def download(chapters_and_href, book_name, archive, archive_hash)
                                         .downcase
 
                 file_name = directory + '/' + (index + 1).to_s.rjust(3, "0") + ".#{file_extension}"
-                LOGGER.DEBUG("  file_name = [#{file_name}]")
+                LOGGER.debug("  file_name = [#{file_name}]")
 
                 # avoid re-writing the page
                 if File.file?(file_name)
