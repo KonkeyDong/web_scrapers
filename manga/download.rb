@@ -17,6 +17,21 @@ end.parse!
 LOGGER = Logger.new(STDOUT)
 LOGGER.level = options[:verbose] ? Logger::DEBUG : Logger::INFO 
 
+def shutdown
+    LOGGER.info("Signal int/term captured; exiting gracefully...")
+    exit 0
+end
+
+# Trap ^C 
+Signal.trap("INT") { 
+  shut_down 
+}
+
+# Trap `Kill `
+Signal.trap("TERM") {
+  shut_down
+}
+
 def pre_download(url)
     LOGGER.debug("BEFORE PRE-DOWNLOAD URL [#{url}]...")
     html = Nokogiri::HTML(URI.open(url, read_timeout: READ_TIMEOUT))
