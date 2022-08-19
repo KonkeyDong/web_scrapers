@@ -1,4 +1,4 @@
-(ql:quickload '("dexador" "plump" "lquery" "lparallel" "cl-ppcre" "iterate" "uiop"))
+(ql:quickload '("dexador" "plump" "lquery" "lparallel" "cl-ppcre" "iterate" "uiop" "serapeum"))
 (use-package :iterate)
 
 ;;; Regex constants
@@ -9,6 +9,8 @@
 (defconstant +multiple-spaces-regex+ (ppcre:create-scanner "\\s+"))
 (defconstant +ending-underscore-regex+ (ppcre:create-scanner "_$"))
 (defconstant +two-to-four-numbers-regex+ (ppcre:create-scanner "_\\d{2,4}_"))
+
+(defconstant +number-of-threads+ (serapeum:count-cpus))
 
 ;;; structs
 (defstruct song-information
@@ -139,6 +141,7 @@
 
 (defun download (url)
   "Download all songs, thirty at a time"
+  (setf lparallel:*kernel* (lparallel:make-kernel +number-of-threads+)) ; start up the number of threads specified
   (let* ((request (dex:get url))
          (parsed-content (lquery:$ (initialize request)))
          (album-name (get-album-name parsed-content)) 
@@ -156,9 +159,11 @@
                           :element-type 'unsigned-byte
                           :if-exists :supersede
                           :if-does-not-exist :create)
-          (write-sequence raw-data stream))))
+          (write-sequence raw-data stream)))
+          song)
         song-information-vector)
-    (print (format nil "finished downloading [~a]!" album-name))))
+    (print (format nil "finished downloading [~a]!" album-name)))
+  (lparallel:end-kernel)) ; clean up thread resources. Must be called to avoid exhausting heap memory!
 
 (defun loop-through-file (file)
   "Loop through a file of URLs and download each album into separate folders."
@@ -167,9 +172,7 @@
     (download url)))
 
 (defun main()
-  (let* ((number-of-threads 30)
-         (cmd-arg (second sb-ext:*posix-argv*)))
-    (setf lparallel:*kernel* (lparallel:make-kernel number-of-threads))
+  (let* ((cmd-arg (second sb-ext:*posix-argv*)))
     (if (uiop:ensure-pathname cmd-arg)
         (loop-through-file cmd-arg)
         (download cmd-arg))))
