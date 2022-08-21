@@ -16,6 +16,7 @@
 (defstruct song-information
   title url)
 
+(declaim (ftype (function (vector) string) get-metadata))
 (defun get-metadata (parsed-content)
   "Locates metadata information inside of a <p> tag.
   Returns the multi-line text as a result. The result
@@ -38,11 +39,13 @@
           (text)))
         0)))
 
+(declaim (ftype (function (vector) string) get-album-name))
 (defun get-album-name (parsed-content)
   "Find and return the album name as a string."
   (elt (lquery:$ parsed-content "h2" (text))
         0))
 
+(declaim (ftype (function (vector) string) get-number-of-songs))
 (defun get-number-of-songs (parsed-content)
   "Finds the number of songs after the string 'number of files: '
   from the result of the get-metadata function."
@@ -54,17 +57,20 @@
             (elt start-index 0)
             (elt end-index 0)))))
 
+(declaim (ftype (function (vector) vector) get-songlist))
 (defun get-songlist (parsed-content)
   "Finds all items in the HTML with the ID songlist.
   Returns a vector of PLUMP-DOM:ELEMENT td objects."
   (lquery:$ parsed-content "#songlist .clickable-row"))
 
+(declaim (ftype (function (string) boolean) is-a-song-name-p))
 (defun is-a-song-name-p (text)
   "Checks if text fails the +song-length-regex+ and +song-size-regex+ regex.
   If both both regexes fail, text is a song name."
   (and (null (ppcre:scan +song-length-regex+ text))
        (null (ppcre:scan +song-size-regex+ text))))
 
+(declaim (ftype (function (string) string) add-mp3-to-end-if-necessary))
 (defun add-mp3-to-end-if-necessary (song-name)
   "adds '.mp3' to the end of a song name if '.mp3' isn't there."
   (if (null (ppcre:scan +ends-with-mp3-regex+ song-name))
@@ -72,22 +78,25 @@
       (format nil "~(~a~).mp3" song-name)
       song-name))
 
+(declaim (ftype (function (string) string) remove-bad-characters))
 (defun remove-bad-characters (song-name)
   "Remove characters that linux shells don't like."
-  (let* ((pass1 (substitute #\LEFT_PARENTHESIS #\LEFT_SQUARE_BRACKET song-name))
-         (pass2 (substitute #\RIGHT_PARENTHESIS #\RIGHT_SQUARE_BRACKET pass1))
-         (pass3 (remove #\' pass2))
-         (pass4 (substitute #\SPACE #\- pass3))
-         (pass5 (ppcre:regex-replace-all +multiple-spaces-regex+ pass4 "_"))
-         (final-result (ppcre:regex-replace-all +ending-underscore-regex+ pass5 "")))
+  (let* ((pass (substitute #\LEFT_PARENTHESIS #\LEFT_SQUARE_BRACKET song-name))
+         (pass (substitute #\RIGHT_PARENTHESIS #\RIGHT_SQUARE_BRACKET pass))
+         (pass (remove #\' pass))
+         (pass (substitute #\SPACE #\- pass))
+         (pass (ppcre:regex-replace-all +multiple-spaces-regex+ pass "_"))
+         (final-result (ppcre:regex-replace-all +ending-underscore-regex+ pass "")))
     final-result))
 
+(declaim (ftype (function (PLUMP-DOM:ELEMENT) string) build-url))
 (defun build-url (song-item)
   "Returns the URL from the <a> href attribute."
   (let* ((href-vector (lquery:$ song-item "a" (attr :href)))
          (href-data (elt href-vector 0)))
     (format nil "https://downloads.khinsider.com~a" href-data)))
 
+(declaim (ftype (function (vector) boolean) has-track-numbers-p))
 (defun has-track-numbers-p (song-information-vector)
   "Randomly select 10 songs and check if any of them have some sort of index number."
   (dotimes (i 10)
@@ -97,6 +106,7 @@
         (return-from has-track-numbers-p t)))) ; found a song with what appears to be an index
   nil) ; did not find an index
 
+(declaim (ftype (function (vector) vector) add-track-numbers))
 (defun add-track-numbers (song-information-vector)
   "Tacks on a track number to the front of the song title."
   (let ((vector (make-array (length song-information-vector) :fill-pointer 0)))
@@ -109,6 +119,7 @@
                       vector)))
     vector))
 
+(declaim (ftype (function (vector) vector) pre-download))
 (defun pre-download (parsed-content)
   "First pass to parse an HTML data table for song names and URL destinations.
   Returns a vector of structs of type song-information."
@@ -126,6 +137,7 @@
          vector-result
          (add-track-numbers vector-result))))
 
+(declaim (ftype (function (string) string) get-direct-song-url))
 (defun get-direct-song-url (url)
   "Given a url to a song page, parse the page for a direct URL to the song for download."
   (let* ((request (dex:get url))
@@ -139,6 +151,7 @@
   "Build a file pathname that both the OS and Common Lisp will understand."
   (uiop:ensure-pathname (format nil "./~a/~a" album-name title)))
 
+(declaim (ftype (function (string) symbol) download))
 (defun download (url)
   "Download all songs, thirty at a time"
   (setf lparallel:*kernel* (lparallel:make-kernel +number-of-threads+)) ; start up the number of threads specified
@@ -163,7 +176,8 @@
           song)
         song-information-vector)
     (print (format nil "finished downloading [~a]!" album-name)))
-  (lparallel:end-kernel)) ; clean up thread resources. Must be called to avoid exhausting heap memory!
+  (lparallel:end-kernel) ; clean up thread resources. Must be called to avoid exhausting heap memory!
+  'finished)
 
 (defun loop-through-file (file)
   "Loop through a file of URLs and download each album into separate folders."
