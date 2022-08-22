@@ -1,4 +1,4 @@
-(ql:quickload '("dexador" "plump" "lquery" "lparallel" "cl-ppcre" "iterate" "uiop" "serapeum"))
+(ql:quickload '("dexador" "plump" "lquery" "lparallel" "cl-ppcre" "iterate" "uiop" "serapeum" "str"))
 (use-package :iterate)
 
 ;;; Regex constants
@@ -32,17 +32,19 @@
   Total Filesize: 239 MB
   Date Added: Oct 30th, 2021
       Album type: Soundtrack"
-  (second
-      (elt
-        (lquery:$ parsed-content "p"
-          (combine (attr "align" "left")
-          (text)))
-        0)))
+  (second (elt
+          (lquery:$ parsed-content 
+                    "p"
+                    (combine (attr "align" "left")
+                    (text)))
+          0)))
 
 (declaim (ftype (function (vector) string) get-album-name))
 (defun get-album-name (parsed-content)
   "Find and return the album name as a string."
-  (elt (lquery:$ parsed-content "h2" (text))
+  (elt (lquery:$ parsed-content 
+                 "h2" 
+                 (text))
         0))
 
 (declaim (ftype (function (vector) string) get-number-of-songs))
@@ -74,17 +76,17 @@
 (defun add-mp3-to-end-if-necessary (song-name)
   "adds '.mp3' to the end of a song name if '.mp3' isn't there."
   (if (null (ppcre:scan +ends-with-mp3-regex+ song-name))
-      ; ~(~a~) == toLowerCase()
-      (format nil "~(~a~).mp3" song-name)
+      (format nil "~(~a~).mp3" song-name) ; ~(~a~) == toLowerCase()
       song-name))
 
 (declaim (ftype (function (string) string) remove-bad-characters))
 (defun remove-bad-characters (song-name)
   "Remove characters that linux shells don't like."
-  (let* ((pass (substitute #\LEFT_PARENTHESIS #\LEFT_SQUARE_BRACKET song-name))
-         (pass (substitute #\RIGHT_PARENTHESIS #\RIGHT_SQUARE_BRACKET pass))
-         (pass (remove #\' pass))
-         (pass (substitute #\SPACE #\- pass))
+  (let* ((pass (str:replace-using '("[" "("
+                                    "]" ")"
+                                    "'" ""
+                                    "-" " "
+                                    "+" " ") song-name))
          (pass (ppcre:regex-replace-all +multiple-spaces-regex+ pass "_"))
          (final-result (ppcre:regex-replace-all +ending-underscore-regex+ pass "")))
     final-result))
@@ -92,7 +94,9 @@
 (declaim (ftype (function (PLUMP-DOM:ELEMENT) string) build-url))
 (defun build-url (song-item)
   "Returns the URL from the <a> href attribute."
-  (let* ((href-vector (lquery:$ song-item "a" (attr :href)))
+  (let* ((href-vector (lquery:$ song-item 
+                                "a" 
+                                (attr :href)))
          (href-data (elt href-vector 0)))
     (format nil "https://downloads.khinsider.com~a" href-data)))
 
@@ -114,7 +118,7 @@
       (let* ((song-item (elt song-information-vector n))
              (title (song-information-title song-item))
              (url (song-information-url song-item)))
-        (vector-push (make-song-information :title (format nil "~3,'0d_~a" (+ n 1) title)
+        (vector-push (make-song-information :title (format nil "~3,'0d_~a" (+ n 1) title) ; pad 3 zeros lefts
                                             :url url)
                       vector)))
     vector))
@@ -142,7 +146,8 @@
   "Given a url to a song page, parse the page for a direct URL to the song for download."
   (let* ((request (dex:get url))
          (parsed-content (lquery:$ (initialize request)))
-         (new-url (lquery:$ parsed-content "audio"
+         (new-url (lquery:$ parsed-content 
+                            "audio"
                             (combine (attr "src")
                             (text)))))
     (first (elt new-url 0))))
@@ -161,23 +166,23 @@
          (song-information-vector (pre-download parsed-content)))
     (ensure-directories-exist (uiop:ensure-directory-pathname album-name))
     (lparallel:pmap 'vector
-      (lambda (song)
-        (let*  ((title (song-information-title song))
-                (url (song-information-url song))
-                (direct-url (get-direct-song-url url))
-                (raw-data (dex:get direct-url)))
-          (print (format nil "now downloading: [~a] (of ~a)" title (length song-information-vector)))
-          (with-open-file (stream (build-file-pathname album-name title)
-                          :direction :output
-                          :element-type 'unsigned-byte
-                          :if-exists :supersede
-                          :if-does-not-exist :create)
-          (write-sequence raw-data stream)))
-          song)
-        song-information-vector)
+                    (lambda (song)
+                      (let*  ((title (song-information-title song))
+                              (url (song-information-url song))
+                              (direct-url (get-direct-song-url url))
+                              (raw-data (dex:get direct-url)))
+                        (print (format nil "now downloading: [~a] (of ~a)" title (length song-information-vector)))
+                        (with-open-file (stream (build-file-pathname album-name title)
+                                                :direction :output
+                                                :element-type 'unsigned-byte
+                                                :if-exists :supersede
+                                                :if-does-not-exist :create)
+                          (write-sequence raw-data stream)))
+                      nil) ; return value for pmap lambda. We don't need any data; return the minimum amount for speed
+                    song-information-vector)
     (print (format nil "finished downloading [~a]!" album-name)))
   (lparallel:end-kernel) ; clean up thread resources. Must be called to avoid exhausting heap memory!
-  'finished)
+  'finished) ; the return is pointless, but probably good practice to return something as CL does for all functions.
 
 (defun loop-through-file (file)
   "Loop through a file of URLs and download each album into separate folders."
@@ -187,7 +192,7 @@
 
 (defun main()
   (let* ((cmd-arg (second sb-ext:*posix-argv*)))
-    (if (uiop:ensure-pathname cmd-arg)
+    (if (uiop:file-exists-p (uiop:ensure-pathname cmd-arg))
         (loop-through-file cmd-arg)
         (download cmd-arg))))
 
