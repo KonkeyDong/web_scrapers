@@ -32,20 +32,23 @@
   Total Filesize: 239 MB
   Date Added: Oct 30th, 2021
       Album type: Soundtrack"
-  (second (elt
-          (lquery:$ parsed-content 
-                    "p"
-                    (combine (attr "align" "left")
-                    (text)))
-          0)))
+  (second (elt (lquery:$ parsed-content 
+                        "p"
+                        (combine (attr "align" "left")
+                        (text)))
+                0)))
 
 (declaim (ftype (function (vector) string) get-album-name))
 (defun get-album-name (parsed-content)
   "Find and return the album name as a string."
-  (elt (lquery:$ parsed-content 
-                 "h2" 
-                 (text))
-        0))
+  (let* ((album-name (elt (lquery:$ parsed-content 
+                                    "h2" 
+                                    (text))
+                           0)))
+    (str:replace-using '("." ""
+                         ":" "") 
+                        album-name)))
+
 
 (declaim (ftype (function (vector) string) get-number-of-songs))
 (defun get-number-of-songs (parsed-content)
@@ -133,10 +136,9 @@
       (let* ((text-value (elt (lquery:$ song-item (text))
                                0)))
         (when (is-a-song-name-p text-value)
-          (vector-push
-            (make-song-information :title (add-mp3-to-end-if-necessary (remove-bad-characters text-value))
-                                   :url (build-url song-item))
-            vector-result))))
+          (vector-push (make-song-information :title (add-mp3-to-end-if-necessary (remove-bad-characters text-value))
+                                              :url (build-url song-item))
+                        vector-result))))
     (if (has-track-numbers-p vector-result)
          vector-result
          (add-track-numbers vector-result))))
