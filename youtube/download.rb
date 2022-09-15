@@ -25,11 +25,11 @@ def download(data, format, path, options)
             Config::YOUTUBE_DL_BASE,
             "--format #{format}",
             "'#{url}'",
-            "-o '#{full_path}/%(upload_date)s_%(title)s.%(ext)s'",
+            "-o '#{full_path}/#{Config::DESIRED_FILE_FORMAT}'",
             options[:number_of_downloads],
             options[:download_speed],
             "--restrict-filenames",
-            options[:cookie],
+            options[:cookies],
              "--download-archive #{full_path}/archive.txt"
         ].join(' '))
     end
@@ -67,7 +67,7 @@ end
 
 def prompt_choices(audio, video)
     puts "Pick a number to select which yotube playlist to download:"
-    prompt = [*audio, *video].reduce(['EXIT PROGRAM']) do |previous, (url, author)|
+    prompt = [*audio, *video].reduce(['EXIT PROGRAM']) do |previous, (_, author)|
         previous.push(author)
 
         previous
@@ -82,11 +82,7 @@ def prompt_choices(audio, video)
         .gsub(/\s+/, " ")
         .split(" ")
         .map(&:to_i)
-        .reduce([]) do |previous, current|
-            previous.push(prompt[current])
-
-            previous
-        end
+        .map{ |current| prompt[current] }
 end
 
 def exit_program?(selection)
@@ -102,7 +98,7 @@ def help
     heredoc = <<-HEREDOC
     backup_youtube_videos.rb manual pages:
 
-        -c, --cookie cookie_file.txt       : Set the youtube cookie. Don't use ~ in your path!
+        --cookies cookie_file.txt      : Set the youtube cookie. Don't use ~ in your path!
         -h, --help                         : Print the help docs and exit.
         -n, --number-of-downloads <number> : Set the MAX number of downloads.
         -s, --select                       : Select a specific url to download its entire library.
@@ -114,9 +110,11 @@ def help
     puts heredoc
 end
 
+# START
+
 options = {
     number_of_downloads: '',
-    cookie: '',
+    cookies: '',
     download_speed: '-r 1m', # 1 MB download/second MAX default
     select_download: false
 }
@@ -138,8 +136,8 @@ OptionParser.new do |opts|
     end
 
     opts.on('-c STRING', '--cookies STRING') do |cookie_file|
-        options[:cookie] = "--cookie #{File.absolute_path(cookie_file)}"
-        puts "cookie: #{options[:cookie]}"
+        options[:cookies] = "--cookies #{File.absolute_path(cookie_file)}"
+        puts "cookies: #{options[:cookies]}"
     end
 
     opts.on('-s', '--select') do
@@ -149,6 +147,7 @@ OptionParser.new do |opts|
 end.parse!
 
 s = Stopwatch.new
+puts s.timestamp()
 if options[:select_download]
     select_specific_download(AUDIO, VIDEO, options)
 else
@@ -156,3 +155,5 @@ else
     download(VIDEO, 'bestvideo', 'videos', options)
 end
 s.elapsed_time
+
+# FINISH
