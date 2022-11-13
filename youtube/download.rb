@@ -23,7 +23,7 @@ def download(data, format, path, options)
         #FileUtils.makedirs full_path
         system([
             Config::YOUTUBE_DL_BASE,
-            "--format #{format}",
+            format,
             "'#{url}'",
             "-o '#{full_path}/#{Config::DESIRED_FILE_FORMAT}'",
             options[:number_of_downloads],
@@ -53,7 +53,7 @@ def select_specific_download(audio, video, options)
 
     selection.each do |item|
         result = {
-            **build_hash_structure_for_download(audio, 'bestaudio', 'audio'),
+            **build_hash_structure_for_download(audio, Config::AUDIO_FORMAT, 'audio'),
             **build_hash_structure_for_download(video, 'bestvideo', 'videos')
         }[item.to_sym]
 
@@ -151,7 +151,7 @@ puts s.timestamp()
 if options[:select_download]
     select_specific_download(AUDIO, VIDEO, options)
 else
-    download(AUDIO, 'bestaudio', 'audio', options)
+    download(AUDIO, Config::AUDIO_FORMAT, 'audio', options)
     download(VIDEO, 'bestvideo', 'videos', options)
 end
 s.elapsed_time
