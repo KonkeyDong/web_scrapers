@@ -18,7 +18,6 @@ AUDIO = [
 
     ["https://www.youtube.com/channel/UCtUId5WFnN82GdDy7DgaQ7w/videos", "better_ideas"],
     ["https://www.youtube.com/channel/UC5tEELgWBfKbA9fVPRzBzPQ/videos", "coach_red_pill"],
-    ["https://www.youtube.com/channel/UCc7-Rr-wSO530znK2ny05JQ/videos", "donovan_sharpe"],
     ["https://www.youtube.com/c/JaymeEdwardsMedia/videos", "health_software_developer"],
     ["https://www.youtube.com/watch?v=L6dQH0CT3B8&list=PL7ukuCEjUSlxLH3WbxnlG8MlahVoPpfbz", "HuMAN"],
     ["https://www.youtube.com/watch?v=T5yyHZwTOpA&list=PLIBtb_NuIJ1wCrBmN2Z3jcQ4vvmOEi-7-", "prager_u/fireside_chat"],
@@ -43,6 +42,7 @@ AUDIO = [
 
     ["https://www.youtube.com/channel/UCfpnY5NnBl-8L7SvICuYkYQ/videos", "scott_adams"],
     ["https://www.youtube.com/channel/UCHFqcgpUuyOGSsG5N3_N0sA/videos", "strong_successful_male"],
+    ["https://www.youtube.com/c/MROBVIOUS/videos", "mr_obvious"],
 
     ["https://www.youtube.com/watch?v=NHYKpqFUXa0&list=PL3-KFmkeZ60j6iPrvNZxx9_L31KjbrbFE", "tom_leykis"],
     ["https://www.youtube.com/channel/UCWu-IOxbeSD-MRM2Q87ZF0A/videos", "think_before_you_sleep"],
@@ -116,12 +116,14 @@ AUDIO = [
     ["https://www.youtube.com/watch?v=LzwLXFB_2_g&list=PLEbhOtC9klbDV-LWpYW7wF5_3tZsvAibc", "rubin_report/guns"],
     ["https://www.youtube.com/watch?v=H9xC1psOINg&list=PLEbhOtC9klbBKHGtmnTbH1zX92vfKfs-y", "rubin_report/law"],
 
-    ["https://www.youtube.com/c/lexfridman/videos", "lex_fridman"],
+    ["https://www.youtube.com/watch?v=5zOHSysMmH0&list=PLrAXtmErZgOdP_8GztsuKi9nrraNbKKp4", "lex_fridman/podcast"],
+    ["https://www.youtube.com/watch?v=vzICjZMKbNE&list=PLrAXtmErZgOeciFP3CBCIEElOJeitOr41", "lex_fridman/podcast_clips"],
     ["https://www.youtube.com/c/AdamcastIRL/videos", "adamcast_irl"],
     ["https://www.youtube.com/c/skagg3/videos", "matt_christiansen"],
 	["https://www.youtube.com/watch?v=P6Ogx_wg3fU&list=PLyQSN7X0ro21TqRT8493kIR--yvy-2P8E", "walter_lewin/interviews"],
 
     ["https://www.youtube.com/c/UpperEchelonGamersUEG/videos", "upper_echelon_gamers"], # may need video for some videos, but the world news stuff can be pure audio.
+    ["https://www.youtube.com/c/MidnightsEdge/videos", "midnight_edge"],
     ["https://www.youtube.com/c/SlightlyOffensive/videos", "slightly_offensive"],
     ["https://www.youtube.com/c/redonkulaspopp/videos", "terrence_popp"],
     ["https://www.youtube.com/watch?v=v6JW4OfLFbI&list=PL3e1orPYt_4YwSmw1vhXbxfm4fHZdlCkP", "steven_crowder/podcasts"],
@@ -129,11 +131,13 @@ AUDIO = [
     ["https://www.youtube.com/user/TokyoAtomic/videos", "black_pigeon_speaks"],
     ["https://www.youtube.com/c/RantingMonkey/videos", "monkey_in_the_morning"],
     ["https://www.youtube.com/channel/UCo1qRcO1OehgkOD_fHsu_uQ/videos", "thinking_ape"],
+    ["https://www.youtube.com/watch?v=c7mgi5wkWJQ&list=PLgPIxq0EjQUWV2m9zm3_P4uwShodDVGhm", "pussies_podcast"],
+    ["https://www.youtube.com/c/TheRageaholic/videos", "razor_fist"],
 
     # Summit Properties NW
-    ["https://www.youtube.com/watch?v=AAUOyzZtHIM&list=PLxJLBkVM8OjQHdFPNolTvigIMxJ_pDQEG", "seattle_real_estate/podcast"],
-    ["https://www.youtube.com/watch?v=5UG3BX1zzHQ&list=PLxJLBkVM8OjT16wIzkFVezNa539JXHxKj", "seattle_real_estate/podcast_mini_episodes"],
-    ["https://www.youtube.com/watch?v=n7LrNNy02ew&list=PLxJLBkVM8OjQ1O4A7Xjn5WpHajAJv_bT2", "seattle_real_estate/chop_chaz"],
+    ["https://www.youtube.com/watch?v=AAUOyzZtHIM&list=PLxJLBkVM8OjQHdFPNolTvigIMxJ_pDQEG", "news_for_reasonable_people/podcast"],
+    ["https://www.youtube.com/watch?v=5UG3BX1zzHQ&list=PLxJLBkVM8OjT16wIzkFVezNa539JXHxKj", "news_for_reasonable_people/podcast_mini_episodes"],
+    ["https://www.youtube.com/watch?v=n7LrNNy02ew&list=PLxJLBkVM8OjQ1O4A7Xjn5WpHajAJv_bT2", "news_for_reasonable_people/chop_chaz"],
 
     ["https://www.youtube.com/c/RagingGoldenEagle/videos", "raging_golden_eagle"],
 
@@ -143,6 +147,17 @@ AUDIO = [
     ["https://www.youtube.com/watch?v=LoiqIZ_QqEw&list=PLCjfquY2rpXITFbcx8cJ0sfk8FcWOPb8O", "adam_carolla/guests"],
     ["https://www.youtube.com/watch?v=Ad4KyKDKeLQ&list=PLCjfquY2rpXJKp_ZWRQfpdxQaUb47fs8w", "adam_carolla/news"],
     ["https://www.youtube.com/watch?v=PJAsz6VCf5A&list=PLCjfquY2rpXJIpmFCNhKHHtGPkmZi-DGe", "adam_carolla/fan_favorites"],
+
+    # Thomas Sowell
+    ["https://www.youtube.com/c/SowellExplains/videos", "thomas_sowell/explains"],
+    ["https://www.youtube.com/watch?v=Uh1DN00h2JU&list=PLJnf_DDTfIVCXSxZq7k2Wd_PmdVDyUc7Z", "the_telegraph/analysis"],
+    ["https://www.youtube.com/watch?v=SFopIc1OL8g&list=PLJnf_DDTfIVBdwxZsvovNJIQgE5Hq8xiR", "the_telegraph/coronavirus_podcast"],
+
+    ["https://www.youtube.com/watch?v=sJOgQchw3bQ&list=PL6wBsZgyN4TMxkh-CQJLHvU-xkc3nvXUn", "chrissie_mayr/podcast"],
+
+    # The Dark Horse Podcast
+    ["https://www.youtube.com/watch?v=Lio9HV2fWSc&list=PLjQ2gC-5yHEt7hPOrxyU6KNlrePgVe5-3", "bret_weinstein_the_dark_horse_podcast/current_events"],
+    ["https://www.youtube.com/watch?v=Lio9HV2fWSc&list=PLjQ2gC-5yHEug8_VK8ve0oDSJLoIU4b93", "bret_weinstein_the_dark_horse_podcast"],
 ]
 
 # --format bestvideo
@@ -208,5 +223,8 @@ VIDEO = [
 	["https://www.youtube.com/user/PrisonPlanetLive/videos", "paul_joseph_watson"],
 	["https://www.youtube.com/c/SoldierofSteel/videos", "john_burk"],
 	["https://www.youtube.com/watch?v=MK9F4mIG-iE&list=PL3e1orPYt_4bfQetXouN4HrjXanxQxpqc", "steven_crowser/web_shorts"],
+
+    ["https://www.youtube.com/watch?v=0OlimWyPksU&list=PLUJHIXZ3ABScEAqWvRUeUyMpbz0YDAwo_", "mister_sunshine_baby/freedom_convoy_2022"],
+    ["https://www.youtube.com/watch?v=05VkSfvDG_M&list=PLUJHIXZ3ABSdq3na7EVq5Kcj_LqjV9iBC", "mister_sunshine_baby/freedom_convoy_2022"],
 ]
 

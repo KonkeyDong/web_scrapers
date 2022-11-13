@@ -20,10 +20,10 @@ URL_DATA = [
     ["http://www.tenmanga.com/book/God+of+Martial+Arts.html", "god_of_martial_arts"],
     ["http://www.tenmanga.com/book/Kaifuku+Jutsushi+no+Yarinaoshi.html", "redo_of_healer"],
     ["http://www.tenmanga.com/book/%2BC+Sword+and+Cornett.html", "+c_sword_and_cornett"],
-    #["http://www.tenmanga.com/book/NANATSU+NO+TAIZAI.html", "seven_deadly_sins"],
-    #["http://www.tenmanga.com/book/BLACK+CLOVER.html", "black_clover"],
+    ["http://www.tenmanga.com/book/NANATSU+NO+TAIZAI.html", "seven_deadly_sins"],
+    ["http://www.tenmanga.com/book/BLACK+CLOVER.html", "black_clover"],
     ["http://www.tenmanga.com/book/666+Satan.html", "666_satan"],
-    #["http://www.tenmanga.com/book/Star+Martial+God+Technique.html", "star_martial_god_technique"],
+    ["http://www.tenmanga.com/book/Star+Martial+God+Technique.html", "star_martial_god_technique"],
     ["http://www.tenmanga.com/book/HISTORY%27S+STRONGEST+DISCIPLE+KENICHI.html", "historys_strongest_disciple_kenichi"],
     ["http://www.tenmanga.com/book/Berserk.html", "berserk"],
     ["http://www.tenmanga.com/book/Tokyo+Ghoul.html", "tokyo_ghoul"],
@@ -46,5 +46,6 @@ URL_DATA = [
     ["http://www.tenmanga.com/book/Tensei+Shitara+Slime+Datta+Ken.html", "tensei"],
     ["http://www.tenmanga.com/book/Tenchi+Muyo%21.html", "tenchi_muyo"],
     ["http://www.tenmanga.com/book/High+School+of+the+Dead.html?waring=1", "high_school_of_the_dead"],
+    ["https://www.tenmanga.com/book/Shikimori%27s+Not+Just+a+Cutie.html", "shikimori_is_not_just_a_cutie"],
 ]
 
