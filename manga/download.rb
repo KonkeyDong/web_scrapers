@@ -1,6 +1,4 @@
-require 'byebug'
 require 'fileutils'
-require 'ap'
 require 'open-uri'
 require 'nokogiri'
 require 'optparse'
@@ -15,16 +13,16 @@ OptionParser.new do |opt|
 end.parse!
 
 LOGGER = Logger.new(STDOUT)
-LOGGER.level = options[:verbose] ? Logger::DEBUG : Logger::INFO 
+LOGGER.level = options[:verbose] ? Logger::DEBUG : Logger::INFO
 
 def shutdown
     LOGGER.info("Signal int/term captured; exiting gracefully...")
     exit 0
 end
 
-# Trap ^C 
-Signal.trap("INT") { 
-  shutdown 
+# Trap ^C
+Signal.trap("INT") {
+  shutdown
 }
 
 # Trap `Kill `
@@ -124,7 +122,7 @@ def download(chapters_and_href, book_name, archive, archive_hash)
             LOGGER.warn("Exception: #{e.message}")
             LOGGER.warn("waiting 5 seconds and then retrying...")
             sleep(5) # seconds
-            
+
             if retries > 0
                 LOGGER.debug("retries = [#{retries}]; decrementing...")
                 retries -= 1
